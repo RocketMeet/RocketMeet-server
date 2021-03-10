@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: server-dev
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    networks:
+      - app-network
+
+  db:
+    image: mongo
+    container_name: db-dev
+    restart: unless-stopped
+    volumes:
+      - ./dbdata:/data/db
+    networks:
+      - app-network
+    ports:
+      - "27017:27017"
+
+networks:
+  app-network:
+    driver: bridge
