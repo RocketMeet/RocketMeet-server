@@ -15,10 +15,11 @@ export const db = {
 
 export const corsURL: string = process.env.CORS_URL || '';
 
-const devConnectionURL = `mongodb://localhost:27017/${db.name}`;
+const localConnectionURL = `mongodb://localhost:27017/${db.name}`;
+const devConnectionURL = `mongodb://db:27017/${db.name}`;
 const prodConnectionURL = `mongodb+srv://${db.user}:${encodeURIComponent(db.password)}@${db.host}.aewjs.mongodb.net/${db.name}?retryWrites=true&w=majority`;
 
-export const connectionURL: string = environment === 'production' ? prodConnectionURL : devConnectionURL;
+export const connectionURL: string = environment === 'production' ? prodConnectionURL : (environment === 'development' ? devConnectionURL : localConnectionURL);
 
 export const publicEncryptionKey: string = process.env.PUBLIC_ENCRYPTION_KEY || '';
 export const publicEncryptionIV: string = process.env.PUBLIC_ENCRYPTION_IV || '';
