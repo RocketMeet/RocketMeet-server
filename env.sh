@@ -11,7 +11,7 @@
 # VAR2=value
 
 usage() {
-    echo "Usage: env.sh <path to your .json file>"
+    echo "Usage: ./env.sh <path to your .json file>"
     exit 1
 }
 
