@@ -68,3 +68,8 @@ do
         fi
     fi
 done
+
+if [ -d "../RocketMeet-mailer" ]
+then 
+    cp .env ../RocketMeet-mailer
+fi
