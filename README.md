@@ -36,7 +36,7 @@ $ npm install
 
 ### Setup
 
-Go to [Firebase](https://firebase.google.com/) and create a new project. In the authentication section at Firebase, enable sign-in with Google. Then generate a private key from your Project Overview > Project Settings > Service Accounts > Firebase Admin SDK. Next, make a copy of the .env.example file to .env and set the vars corresponding to your Firebase project. Generate and set the public encryption key and IV variables too which is used for email encryption.
+Go to [Firebase](https://firebase.google.com/) and create a new project. In the authentication section at Firebase, enable sign-in with Google. Then generate a private key from your Project Overview > Project Settings > Service Accounts > Firebase Admin SDK. Get the .json file corresponding to your application and run the env.sh script that takes the .json file and produces the .env file. Use the `.env.example` file to add the remainder variables into your produced `.env` file.
 
 ### Run
 
