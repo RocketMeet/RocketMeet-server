@@ -36,7 +36,11 @@ $ npm install
 
 ### Setup
 
-Go to [Firebase](https://firebase.google.com/) and create a new project. In the authentication section at Firebase, enable sign-in with Google. Then generate a private key from your Project Overview > Project Settings > Service Accounts > Firebase Admin SDK. Get the .json file corresponding to your application and run the env.sh script that takes the .json file and produces the .env file. Use the `.env.example` file to add the remaining variables into your produced `.env` file. Additionally, the script will make a copy of this `.env` file into the directory of `RocketMeet-mailer` if it exists.
+Go to [Firebase](https://firebase.google.com/) and create a new project. In the authentication section at Firebase, enable sign-in with Google. Then generate a private key from your Project Overview > Project Settings > Service Accounts > Firebase Admin SDK. Get the .json file corresponding to your application and run the env.sh script that takes the .json file and produces the .env file. Use the `.env.example` file to add the remaining variables into your produced `.env` file. Additionally, the script will make a copy of this `.env` file into the directory of `RocketMeet-mailer` if it exists. The usage of the script is given below.
+
+```bash
+$ ./env.sh <path to your .json file>
+```
 
 ### Run
 
