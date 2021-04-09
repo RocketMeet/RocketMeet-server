@@ -25,6 +25,10 @@ alter=0
 hold=0
 output=""
 
+prepend="PORT=5000\nLOG_LEVEL=info\nNODE_ENV=development\nCORS_URL=http://localhost:3000\n# MongoDB\n# DB_HOST, DB_USER and DB_USER_PWD are only required for the MongoDB Atlas instance in production\n\nDB_NAME=pollsdb\nDB_HOST=hostname\nDB_USER=username\nDB_USER_PWD=password\n\n# Email encryption\n\nPUBLIC_ENCRYPTION_KEY=your_key_of_length_32_characters_here\nPUBLIC_ENCRYPTION_IV=your_IV_of_length_16_characters_here\n\n# Firebase\n\nWEB_API_KEY=\n\n"
+
+echo -e $prepend >> .env
+
 for word in $content
 do
     word=$(echo $word | tr -d '"')
