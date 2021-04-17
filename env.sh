@@ -1,14 +1,20 @@
 #!/bin/bash
 
 # This is a script that takes a .json file and converts it into
-# .env file. The .json file can be of the format,
+# .env file. The .json file comes from Firabase and is of the following 
+# format:
 # {
-# "var1"="value"
-# "var2"="value"
+#  "type"="service_account"
+#  "project_id"="some_id"
+#  "private_key_id"="some_key_id"
+#  "private_key"="some_key"
+#  "client_email"="some_email"
+#  "client_id"="some_client_id"
+#  "auth_uri"="some_auth_uri"
+#  "token_uri"="some_token_uri"
+#  "auth_provider_x509_cert_url"="some_cert_url_auth"
+#  "client_x509_cert_url"="some_cert_url_client"
 # }
-# The corresponding .env file would contain
-# VAR1=value
-# VAR2=value
 
 usage() {
     echo "Usage: ./env.sh <path to your .json file>"
@@ -25,9 +31,9 @@ alter=0
 hold=0
 output=""
 
-prepend="PORT=5000\nLOG_LEVEL=info\nNODE_ENV=development\nCORS_URL=http://localhost:3000\n# MongoDB\n# DB_HOST, DB_USER and DB_USER_PWD are only required for the MongoDB Atlas instance in production\n\nDB_NAME=pollsdb\nDB_HOST=hostname\nDB_USER=username\nDB_USER_PWD=password\n\n# Email encryption\n\nPUBLIC_ENCRYPTION_KEY=your_key_of_length_32_characters_here\nPUBLIC_ENCRYPTION_IV=your_IV_of_length_16_characters_here\n\n# Firebase\n\nWEB_API_KEY=\n\n"
+prepend=$(sed -n '1,23p' .env.example)
 
-echo -e $prepend >> .env
+printf "$prepend\n" >> .env
 
 for word in $content
 do
@@ -46,6 +52,10 @@ do
     then
         hold=0
         /bin/echo -E $output >> .env
+        if [ -d "../RocketMeet-mailer" ]
+        then
+            /bin/echo -E $output >>  ../RocketMeet-mailer/.env
+        fi
         output=$(echo $word | tr '[a-z]' '[A-Z]')
         continue
     fi
@@ -64,6 +74,10 @@ do
             equals="="
             output=$output$equals$word
             echo $output >> .env
+            if [ -d "../RocketMeet-mailer" ]
+            then
+                echo -E $output >>  ../RocketMeet-mailer/.env
+            fi
             output=""
         else
             alter=1
@@ -72,8 +86,3 @@ do
         fi
     fi
 done
-
-if [ -d "../RocketMeet-mailer" ]
-then 
-    cp .env ../RocketMeet-mailer
-fi
