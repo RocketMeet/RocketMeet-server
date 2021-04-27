@@ -35,6 +35,12 @@ prepend=$(sed -n '1,23p' .env.example)
 
 printf "$prepend\n" >> .env
 
+if [ -d "../RocketMeet-mailer" ]
+then
+    prepend=$(sed -n '1,9p' ../RocketMeet-mailer/.env.example)
+    printf "$prepend\n" >> ../RocketMeet-mailer/.env
+fi
+
 for word in $content
 do
     word=$(echo $word | tr -d '"')
